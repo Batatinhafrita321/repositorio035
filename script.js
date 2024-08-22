@@ -21,20 +21,39 @@ const caixaPrincipal = document.querySelector(".caixa-principal");
     let atual = 0;
     let perguntaAtual;
     function mostraPergunta() {
+    if (atual >= perguntas.length) {
+            mostraResultado();
+            return;
+            }
     perguntaAtual = perguntas[atual];
     caixaPerguntas.textContent = perguntaAtual.enunciado;
+    caixaAlternativas.textContent = " ";
     mostraPergunta();
     mostraAlternativas();
+    }
+    function mostraResultado() {
+        caixaPerguntas.textContent = "Em 2049...";
+        textoResultado.textContent = historiaFinal;
+        caixaAlternativas.textContent = "";
     }
     function mostraAlternativas() {
         for (const alternativa of perguntaAtual.alternativas) {
             const botaoAlternativas = document
             .createElement("button");
 botaoAlternativas.textContent = alternativa.texto;
-botaoAlternativas.addEventListener("click", function () {
+botaoAlternativas.addEventListener("click", function () =>
+respostaSelecionada(alternativa));{
     atual++;
     mostraPergunta();
-    });
+    function respostaSelecionada(opcaoSelecionada) {
+        const afirmacoes = opcaoSelecionada.afirmação;
+        historiaFinal = afirmacoes + " ";
+        atual++;
+        mostraPergunta();
+    }
+    let atual = 0;
+    let perguntaAtual;
+    let historiaFinal = "";
 caixaAlternativas.appendChild(botaoAlternativas);
     const caixaPerguntas = document.querySelector}
     (".caixa-alternativas");
@@ -42,8 +61,8 @@ caixaAlternativas.appendChild(botaoAlternativas);
 {
     enunciado: "Assim que saiu da escola, você se depara com uma nova tecnologia: um chat que consegue responder a todas as dúvidas que uma pessoa pode ter. Além disso, o chat também gera imagens e áudios hiper-realistas. Qual o seu primeiro pensamento?",
      alternativas: [
-    "Isso é assustador!",
-    "Isso é maravilhoso!"
+    texto: "Isso é assustador!",
+    afirmacao: "Isso é maravilhoso!"
     ]
     }
     const perguntas = [
